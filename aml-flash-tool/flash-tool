@@ -208,11 +208,11 @@ done
 # --------------------
 host_os=`uname -o`
 host_machine=`uname -m|grep -i "x86"`
-if [ ! -z "$host_os" ]; then
-   if [ "$host_os" = "Darwin" ]; then
+if [[ ! -z "$host_os" ]]; then
+   if [[ "$host_os" == "Darwin" ]]; then
       SYSTEM='macos'
       EXE=''
-   elif [ ! -z "$host_machine" ]; then
+   elif [[ ! -z "$host_machine" ]]; then
       SYSTEM='linux-x86'
       EXE=''
    else
@@ -446,11 +446,11 @@ print_debug ""
 print_debug "Parsing image configuration files"
 print_debug "---------------------------------"
 
-if [ -e /etc/lsb-release ]; then
+if [[ -e /etc/lsb-release ]]; then
 	source /etc/lsb-release
 fi
 
-if [ $host_os = Linux ] && linux-version compare $DISTRIB_RELEASE ge 19.10; then
+if [[ "$host_os" != "Darwin" ]] && linux-version compare $DISTRIB_RELEASE ge 19.10; then
 	platform_conf_name=`awk '/sub_type="platform"/{gsub("file=","",$1); gsub(/"/,"",$1); print $1}' $tmp_dir/image.cfg`
 	print_debug "platform_conf_name  = $platform_conf_name"
 	ddr_filename=`awk '/sub_type="DDR"/{gsub("file=","",$1); gsub(/"/,"",$1); print $1}' $tmp_dir/image.cfg`
